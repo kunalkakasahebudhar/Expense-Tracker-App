@@ -1,0 +1,62 @@
+name: mhtechin
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.6.1
+  intl: ^0.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.5.4
+  riverpod_generator: ^2.6.5
+  custom_lint: ^0.7.5
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/getstart.jpg
+    - assets/avatars/user1.png
+    - assets/avatars/user2.png
+    - assets/avatars/user3.png
+    - assets/avatars/user4.png
+    - assets/avatars/user5.png
+    - assets/icons/upwork.png
+    - assets/icons/paypal.png
+    - assets/icons/youtube.png
+    - assets/icons/transfer.png
+    - assets/icons/starbucks.png
+    - assets/icons/youtube.png
+    - assets/avatars/user1.png
+    - assets/images/avatar.png
+    - assets/icons/chip.png
+    - assets/icons/diamond.png
+
+
+
+  #fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
