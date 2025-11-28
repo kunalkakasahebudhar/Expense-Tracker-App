@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '/pages/homepage.dart'; // Make sure this path is correct
+import 'main_screen.dart';
 
 class GetStartScreen extends ConsumerWidget {
   const GetStartScreen({super.key});
@@ -57,7 +57,7 @@ class GetStartScreen extends ConsumerWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (_) => const HomePage()),
+                      MaterialPageRoute(builder: (_) => const MainScreen()),
                     );
                   },
                   child: const Text(

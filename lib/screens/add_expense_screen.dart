@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'homepage.dart';
-import 'statistics_screen.dart';
-import 'package:mhtechin/wallet/wallet_screen.dart';
-import 'profile_screen.dart';
 
 class AddExpenseScreen extends ConsumerStatefulWidget {
   const AddExpenseScreen({super.key});
@@ -17,9 +13,14 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   final TextEditingController _amountController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   String _selectedCategory = 'Netflix';
-  final List<String> _categories = ['Netflix', 'Spotify', 'Groceries', 'Utilities', 'Transport'];
+  final List<String> _categories = [
+    'Netflix',
+    'Spotify',
+    'Groceries',
+    'Utilities',
+    'Transport',
+  ];
   String _currentNumberInput = '48.00';
-  int _bottomNavBarSelectedIndex = 2;
 
   @override
   void initState() {
@@ -39,7 +40,10 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         _currentNumberInput = '0.00';
       } else if (value == 'backspace') {
         if (_currentNumberInput.isNotEmpty) {
-          _currentNumberInput = _currentNumberInput.substring(0, _currentNumberInput.length - 1);
+          _currentNumberInput = _currentNumberInput.substring(
+            0,
+            _currentNumberInput.length - 1,
+          );
         }
         if (_currentNumberInput.isEmpty || _currentNumberInput == '.') {
           _currentNumberInput = '0.00';
@@ -94,27 +98,6 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
     }
   }
 
-  void _onBottomNavBarItemTapped(int index) {
-    if (index == _bottomNavBarSelectedIndex) return;
-
-    setState(() {
-      _bottomNavBarSelectedIndex = index;
-    });
-
-    final pages = [
-      const HomePage(),
-      const StatisticsScreen(),
-      const AddExpenseScreen(),
-      const WalletScreen(),
-      const ProfileScreen(),
-    ];
-
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => pages[index]),
-          (route) => false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,10 +109,16 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Add Expense', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Add Expense',
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         actions: [
-          IconButton(icon: const Icon(Icons.more_horiz, color: Colors.black), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.more_horiz, color: Colors.black),
+            onPressed: () {},
+          ),
         ],
       ),
       body: Column(
@@ -150,19 +139,6 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
           _buildNumericKeypad(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _bottomNavBarSelectedIndex,
-        selectedItemColor: const Color(0xFF209E9F),
-        unselectedItemColor: Colors.grey,
-        onTap: _onBottomNavBarItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
     );
   }
 
@@ -172,20 +148,35 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 2, blurRadius: 5)],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 5,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('NAME', style: TextStyle(fontSize: 12, color: Colors.grey)),
+          const Text(
+            'NAME',
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
           const SizedBox(height: 8),
           DropdownButtonFormField<String>(
             value: _selectedCategory,
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.grey.shade100,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
             ),
             icon: const Icon(Icons.keyboard_arrow_down),
             onChanged: (value) => setState(() => _selectedCategory = value!),
@@ -198,7 +189,8 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
                       'assets/icons/${value.toLowerCase()}.png',
                       height: 24,
                       width: 24,
-                      errorBuilder: (context, error, stackTrace) => const Icon(Icons.category, size: 24),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Icon(Icons.category, size: 24),
                     ),
                     const SizedBox(width: 10),
                     Text(value),
@@ -208,7 +200,10 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             }).toList(),
           ),
           const SizedBox(height: 20),
-          const Text('AMOUNT', style: TextStyle(fontSize: 12, color: Colors.grey)),
+          const Text(
+            'AMOUNT',
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
           const SizedBox(height: 8),
           TextField(
             controller: _amountController,
@@ -216,34 +211,57 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.grey.shade100,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
               suffixIcon: TextButton(
                 onPressed: () => _onNumberTap('Clear'),
-                child: const Text('Clear', style: TextStyle(color: Colors.teal)),
+                child: const Text(
+                  'Clear',
+                  style: TextStyle(color: Colors.teal),
+                ),
               ),
             ),
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          const Text('DATE', style: TextStyle(fontSize: 12, color: Colors.grey)),
+          const Text(
+            'DATE',
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
           const SizedBox(height: 8),
           GestureDetector(
             onTap: () => _selectDate(context),
             child: AbsorbPointer(
               child: TextField(
-                controller: TextEditingController(text: DateFormat('EEE, dd MMM yyyy').format(_selectedDate)),
+                controller: TextEditingController(
+                  text: DateFormat('EEE, dd MMM yyyy').format(_selectedDate),
+                ),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.grey.shade100,
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
-                  suffixIcon: const Icon(Icons.calendar_today, color: Colors.grey),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  suffixIcon: const Icon(
+                    Icons.calendar_today,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ),
           ),
           const SizedBox(height: 20),
-          const Text('INVOICE', style: TextStyle(fontSize: 12, color: Colors.grey)),
+          const Text(
+            'INVOICE',
+            style: TextStyle(fontSize: 12, color: Colors.grey),
+          ),
           const SizedBox(height: 8),
           Container(
             width: double.infinity,
@@ -278,7 +296,9 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5)],
+        boxShadow: [
+          BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5),
+        ],
       ),
       child: Column(
         children: rows.map((row) {
@@ -312,7 +332,13 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             child: Center(
               child: icon != null
                   ? Icon(icon, size: 24, color: Colors.black)
-                  : Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  : Text(
+                      value,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
             ),
           ),
         ),

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'homepage.dart';
-import 'add_expense_screen.dart';
-import 'package:mhtechin/wallet//wallet_screen.dart';
-import 'profile_screen.dart';
 
 class StatisticsScreen extends ConsumerStatefulWidget {
   const StatisticsScreen({super.key});
@@ -15,28 +11,6 @@ class StatisticsScreen extends ConsumerStatefulWidget {
 class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
   int _selectedTimePeriodIndex = 2;
   String _selectedFilter = 'Expense';
-  int _bottomNavBarSelectedIndex = 1;
-
-  void _onBottomNavBarItemTapped(int index) {
-    if (index == _bottomNavBarSelectedIndex) return;
-
-    setState(() {
-      _bottomNavBarSelectedIndex = index;
-    });
-
-    final pages = [
-      const HomePage(),
-      const StatisticsScreen(),
-      const AddExpenseScreen(),
-      const WalletScreen(),
-      const ProfileScreen(),
-    ];
-
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => pages[index]),
-          (route) => false,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,19 +51,6 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
             _buildTopSpendingSection(),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _bottomNavBarSelectedIndex,
-        selectedItemColor: const Color(0xFF209E9F),
-        unselectedItemColor: Colors.grey,
-        onTap: _onBottomNavBarItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
       ),
     );
   }
@@ -158,7 +119,9 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
               });
             },
             items: <String>['Expense', 'Income']
-                .map((value) => DropdownMenuItem(value: value, child: Text(value)))
+                .map(
+                  (value) => DropdownMenuItem(value: value, child: Text(value)),
+                )
                 .toList(),
           ),
         ),
@@ -191,14 +154,20 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
             child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF209E9F),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Text(
                     '\$1,230',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 const Icon(Icons.circle, color: Color(0xFF209E9F), size: 10),
@@ -214,7 +183,13 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
               children: [
                 Text('Mar', style: TextStyle(color: Colors.grey)),
                 Text('Apr', style: TextStyle(color: Colors.grey)),
-                Text('May', style: TextStyle(color: Color(0xFF209E9F), fontWeight: FontWeight.bold)),
+                Text(
+                  'May',
+                  style: TextStyle(
+                    color: Color(0xFF209E9F),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 Text('Jun', style: TextStyle(color: Colors.grey)),
                 Text('Jul', style: TextStyle(color: Colors.grey)),
                 Text('Aug', style: TextStyle(color: Colors.grey)),
@@ -234,7 +209,10 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Top Spending', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const Text(
+              'Top Spending',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
             IconButton(
               icon: const Icon(Icons.filter_list),
               onPressed: () {
@@ -286,8 +264,18 @@ class _ChartPainter extends CustomPainter {
 
     final path = Path()
       ..moveTo(0, size.height * 0.7)
-      ..quadraticBezierTo(size.width * 0.25, size.height * 0.4, size.width * 0.5, size.height * 0.6)
-      ..quadraticBezierTo(size.width * 0.75, size.height * 0.9, size.width, size.height * 0.7)
+      ..quadraticBezierTo(
+        size.width * 0.25,
+        size.height * 0.4,
+        size.width * 0.5,
+        size.height * 0.6,
+      )
+      ..quadraticBezierTo(
+        size.width * 0.75,
+        size.height * 0.9,
+        size.width,
+        size.height * 0.7,
+      )
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
@@ -296,8 +284,18 @@ class _ChartPainter extends CustomPainter {
 
     final strokePath = Path()
       ..moveTo(0, size.height * 0.7)
-      ..quadraticBezierTo(size.width * 0.25, size.height * 0.4, size.width * 0.5, size.height * 0.6)
-      ..quadraticBezierTo(size.width * 0.75, size.height * 0.9, size.width, size.height * 0.7);
+      ..quadraticBezierTo(
+        size.width * 0.25,
+        size.height * 0.4,
+        size.width * 0.5,
+        size.height * 0.6,
+      )
+      ..quadraticBezierTo(
+        size.width * 0.75,
+        size.height * 0.9,
+        size.width,
+        size.height * 0.7,
+      );
 
     canvas.drawPath(strokePath, strokePaint);
   }
@@ -332,7 +330,8 @@ class TransactionItem extends StatelessWidget {
           fit: BoxFit.cover,
           height: 24,
           width: 24,
-          errorBuilder: (context, error, stackTrace) => const Icon(Icons.category),
+          errorBuilder: (context, error, stackTrace) =>
+              const Icon(Icons.category),
         ),
       ),
       title: Text(name),

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../pages/add_expense_screen.dart';
-import '../pages/homepage.dart';
-import '../pages/profile_screen.dart';
-import '../pages/statistics_screen.dart';
-
 class ConnectCardScreen extends ConsumerStatefulWidget {
   const ConnectCardScreen({super.key});
 
@@ -16,10 +11,12 @@ class ConnectCardScreen extends ConsumerStatefulWidget {
 class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  int _bottomNavBarSelectedIndex = 3;
 
-  final TextEditingController _nameOnCardController = TextEditingController(text: 'IRVAN MOSES');
-  final TextEditingController _debitCardNumberController = TextEditingController();
+  final TextEditingController _nameOnCardController = TextEditingController(
+    text: 'IRVAN MOSES',
+  );
+  final TextEditingController _debitCardNumberController =
+      TextEditingController();
   final TextEditingController _cvcController = TextEditingController();
   final TextEditingController _expirationController = TextEditingController();
   final TextEditingController _zipController = TextEditingController();
@@ -39,35 +36,6 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
     _expirationController.dispose();
     _zipController.dispose();
     super.dispose();
-  }
-
-  void _onBottomNavBarItemTapped(int index) {
-    if (index == _bottomNavBarSelectedIndex) return;
-
-    setState(() => _bottomNavBarSelectedIndex = index);
-
-    late final Widget target;
-    switch (index) {
-      case 0:
-        target = const HomePage();
-        break;
-      case 1:
-        target = const StatisticsScreen();
-        break;
-      case 2:
-        target = const AddExpenseScreen();
-        break;
-      case 4:
-        target = const ProfileScreen();
-        break;
-      default:
-        return; // invalid index
-    }
-
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => target),
-          (route) => false,
-    );
   }
 
   @override
@@ -117,19 +85,6 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
               ],
             ),
           ),
-          BottomNavigationBar(
-            selectedItemColor: const Color(0xFF209E9F),
-            unselectedItemColor: Colors.grey,
-            currentIndex: _bottomNavBarSelectedIndex,
-            onTap: _onBottomNavBarItemTapped,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-            ],
-          ),
         ],
       ),
     );
@@ -155,17 +110,37 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
           const SizedBox(height: 20),
           _buildTextField(_nameOnCardController, 'NAME ON CARD'),
           const SizedBox(height: 15),
-          _buildTextField(_debitCardNumberController, 'DEBIT CARD NUMBER', keyboardType: TextInputType.number),
+          _buildTextField(
+            _debitCardNumberController,
+            'DEBIT CARD NUMBER',
+            keyboardType: TextInputType.number,
+          ),
           const SizedBox(height: 15),
           Row(
             children: [
-              Expanded(child: _buildTextField(_cvcController, 'CVC', keyboardType: TextInputType.number)),
+              Expanded(
+                child: _buildTextField(
+                  _cvcController,
+                  'CVC',
+                  keyboardType: TextInputType.number,
+                ),
+              ),
               const SizedBox(width: 15),
-              Expanded(child: _buildTextField(_expirationController, 'EXPIRATION MM/YY', keyboardType: TextInputType.datetime)),
+              Expanded(
+                child: _buildTextField(
+                  _expirationController,
+                  'EXPIRATION MM/YY',
+                  keyboardType: TextInputType.datetime,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 15),
-          _buildTextField(_zipController, 'ZIP', keyboardType: TextInputType.number),
+          _buildTextField(
+            _zipController,
+            'ZIP',
+            keyboardType: TextInputType.number,
+          ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
@@ -176,7 +151,9 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF209E9F),
               minimumSize: const Size(double.infinity, 50),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
             child: const Text(
               'Connect Card',
@@ -194,7 +171,9 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
       height: 200,
       margin: const EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF209E9F), Color(0xFF1D8F90)]),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF209E9F), Color(0xFF1D8F90)],
+        ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -202,7 +181,7 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
             spreadRadius: 3,
             blurRadius: 7,
             offset: const Offset(0, 3),
-          )
+          ),
         ],
       ),
       child: Stack(
@@ -213,9 +192,19 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Debit Card', style: TextStyle(color: Colors.white70, fontSize: 16)),
+                Text(
+                  'Debit Card',
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
                 SizedBox(height: 5),
-                Text('Mono', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(
+                  'Mono',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -227,7 +216,7 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
               height: 40,
               width: 40,
               errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.credit_card, color: Colors.white, size: 40),
+                  const Icon(Icons.credit_card, color: Colors.white, size: 40),
             ),
           ),
           const Positioned(
@@ -237,10 +226,38 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('6219', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                Text('8610', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                Text('2888', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
-                Text('8075', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                Text(
+                  '6219',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '8610',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '2888',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '8075',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
           ),
@@ -255,14 +272,21 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
           const Positioned(
             bottom: 20,
             right: 20,
-            child: Text('22/01', style: TextStyle(color: Colors.white, fontSize: 16)),
+            child: Text(
+              '22/01',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, String labelText, {TextInputType keyboardType = TextInputType.text}) {
+  Widget _buildTextField(
+    TextEditingController controller,
+    String labelText, {
+    TextInputType keyboardType = TextInputType.text,
+  }) {
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
@@ -276,9 +300,16 @@ class _ConnectCardScreenState extends ConsumerState<ConnectCardScreen>
         ),
         filled: true,
         fillColor: Colors.grey.shade100,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10,
+        ),
       ),
-      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
     );
   }
 }

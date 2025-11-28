@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mhtechin/wallet/connect_card.dart';
-import 'package:mhtechin/pages/homepage.dart';
-import 'package:mhtechin/pages/statistics_screen.dart';
-import 'package:mhtechin/pages/profile_screen.dart';
+import 'connect_card.dart';
 
 class ConnectWalletScreen extends StatefulWidget {
   const ConnectWalletScreen({super.key});
@@ -15,23 +12,6 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
   bool isCardsSelected = false;
   String selectedMethod = 'Bank Link';
 
-  void _onBottomNavTap(int index) {
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomePage()));
-        break;
-      case 1:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const StatisticsScreen()));
-        break;
-      case 2:
-      // Already on Wallet
-        break;
-      case 3:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const ProfileScreen()));
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +19,10 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF1C9A8B),
         elevation: 0,
-        title: const Text('Connect Wallet', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Connect Wallet',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
@@ -52,7 +35,7 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
               backgroundColor: Colors.white.withOpacity(0.2),
               child: const Icon(Icons.notifications, color: Colors.white),
             ),
-          )
+          ),
         ],
       ),
       body: Column(
@@ -99,7 +82,8 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
                       title: 'Microdeposits',
                       subtitle: 'Connect bank in 5–7 days',
                       selected: selectedMethod == 'Microdeposits',
-                      onTap: () => setState(() => selectedMethod = 'Microdeposits'),
+                      onTap: () =>
+                          setState(() => selectedMethod = 'Microdeposits'),
                     ),
                     const SizedBox(height: 12),
                     _buildOptionTile(
@@ -119,7 +103,9 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
                       child: OutlinedButton(
                         onPressed: () {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Proceeding with $selectedMethod')),
+                            SnackBar(
+                              content: Text('Proceeding with $selectedMethod'),
+                            ),
                           );
                         },
                         style: OutlinedButton.styleFrom(
@@ -130,7 +116,10 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
                         ),
                         child: const Text(
                           'Next',
-                          style: TextStyle(color: Color(0xFF1C9A8B), fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: Color(0xFF1C9A8B),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -139,18 +128,6 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
               ),
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        selectedItemColor: const Color(0xFF1C9A8B),
-        unselectedItemColor: Colors.grey,
-        onTap: _onBottomNavTap,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
         ],
       ),
     );
@@ -205,24 +182,33 @@ class _ConnectWalletScreenState extends State<ConnectWalletScreen> {
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
         child: Row(
           children: [
-            Icon(icon, size: 28, color: selected ? const Color(0xFF1C9A8B) : Colors.grey),
+            Icon(
+              icon,
+              size: 28,
+              color: selected ? const Color(0xFF1C9A8B) : Colors.grey,
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: selected ? const Color(0xFF1C9A8B) : Colors.black,
-                      )),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: selected ? const Color(0xFF1C9A8B) : Colors.black,
+                    ),
+                  ),
                   const SizedBox(height: 4),
-                  Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
                 ],
               ),
             ),
             if (selected)
-              const Icon(Icons.check_circle, color: Color(0xFF1C9A8B))
+              const Icon(Icons.check_circle, color: Color(0xFF1C9A8B)),
           ],
         ),
       ),

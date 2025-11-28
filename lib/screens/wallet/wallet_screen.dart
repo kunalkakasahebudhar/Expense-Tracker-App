@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mhtechin/wallet/connect_wallet_screen.dart';
-
-import 'package:mhtechin/pages/add_expense_screen.dart';
-import 'package:mhtechin/pages/homepage.dart';
-import 'package:mhtechin/pages/profile_screen.dart';
-import 'package:mhtechin/pages/statistics_screen.dart';
+import 'connect_wallet_screen.dart';
 
 class WalletScreen extends ConsumerStatefulWidget {
   const WalletScreen({super.key});
@@ -15,27 +10,6 @@ class WalletScreen extends ConsumerStatefulWidget {
 }
 
 class _WalletScreenState extends ConsumerState<WalletScreen> {
-  final int _selectedIndex = 3;
-
-  void _onItemTapped(int index) {
-    if (index == _selectedIndex) return;
-
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomePage()));
-        break;
-      case 1:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const StatisticsScreen()));
-        break;
-      case 2:
-        Navigator.push(context, MaterialPageRoute(builder: (_) => const AddExpenseScreen()));
-        break;
-      case 4:
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const ProfileScreen()));
-        break;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +21,10 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Wallet', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Wallet',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         actions: const [
           Padding(
@@ -71,7 +48,10 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                const Text('Total Balance', style: TextStyle(color: Colors.grey)),
+                const Text(
+                  'Total Balance',
+                  style: TextStyle(color: Colors.grey),
+                ),
                 const SizedBox(height: 8),
                 const Text(
                   '\$ 2,548.00',
@@ -87,7 +67,9 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const ConnectWalletScreen()),
+                          MaterialPageRoute(
+                            builder: (_) => const ConnectWalletScreen(),
+                          ),
                         );
                       },
                     ),
@@ -146,19 +128,6 @@ class _WalletScreenState extends ConsumerState<WalletScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: const Color(0xFF209E9F),
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
     );
   }
 }
@@ -168,11 +137,7 @@ class _ActionButton extends StatelessWidget {
   final String label;
   final VoidCallback? onTap;
 
-  const _ActionButton({
-    required this.icon,
-    required this.label,
-    this.onTap,
-  });
+  const _ActionButton({required this.icon, required this.label, this.onTap});
 
   @override
   Widget build(BuildContext context) {
